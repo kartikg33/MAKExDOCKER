@@ -1,4 +1,4 @@
-# set bindir if not already set
+# set build directory if not already set
 BUILDDIR?=build
 
 .PHONY: build test run depends
