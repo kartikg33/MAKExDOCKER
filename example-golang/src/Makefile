@@ -8,7 +8,7 @@ default: build
 # go build
 # -- stores output binary in directory bin/
 build:
-	$(info Compiling for target $(TARGET) as $(GOARCH)/$(GOOS))
+	$(info Compiling for target $(GOARCH)/$(GOOS))
 	mkdir -p $(BUILDDIR)
 	go build -v -o $(BUILDDIR)/
 

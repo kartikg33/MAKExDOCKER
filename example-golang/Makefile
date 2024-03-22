@@ -56,8 +56,8 @@ help:
 
 # builds binary
 build:
-	$(info Building binary for target $(TARGET) using $(BUILDOS)/$(BUILDARCH))
-	docker run --rm -e TARGET=$(TARGET) -e GOARCH=$(BUILDARCH) -e GOOS=$(BUILDOS) -e BUILDDIR=build -v "$(CURR_DIR)/src":/usr/src/app -w /usr/src/app golang:1.20 make build
+	$(info Building binary for target $(TARGET) using $(BUILDARCH)/$(BUILDOS))
+	docker run --rm -e GOARCH=$(BUILDARCH) -e GOOS=$(BUILDOS) -e BUILDDIR=build -v "$(CURR_DIR)/src":/usr/src/app -w /usr/src/app golang:1.20 make build
 
 # tidies go modules file
 depends:
