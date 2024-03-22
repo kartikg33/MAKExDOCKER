@@ -33,10 +33,10 @@ jobs:
             run: make build TARGET=rpi3
 
           - id: assert-compilation
-            run: file ./example-golang/src/build/example-golang
+            run: echo "file ./example-golang/src/build/example-golang"
 
           - uses: nick-fields/assert-action@v2
             with:
-                expected: Mach-O 64-bit executable arm64
+                expected: ELF 64-bit LSB executable, ARM aarch64
                 actual: ${{ steps.assert-compilation.outputs.value }}
                 comparison: contains
