@@ -1,16 +1,16 @@
 # set current directory
 CURR_DIR:=$(shell pwd)
 
-SUPPORTED_TARGETS := host rpi3b
+SUPPORTED_TARGETS := host rpi3
 ### CONTRIBUTE: add additional supported platforms to this list, e.g. beaglebone, rpi4, bananapi, etc...
-
-# Set target to host if not already specified
-TARGET ?= host
 
 ####### DO NOT USE TAB INDENTS HERE AS MAKEFILE MISTAKES TAB INDENTS FOR BUILD COMMANDS #######
 
 # check if target is in list of supported targets, else issue error
-ifeq ($(filter $(TARGET),$(SUPPORTED_TARGETS)),)
+ifndef $(TARGET)
+# Set target to host if not already specified
+TARGET = host
+else ifeq ($(filter $(TARGET),$(SUPPORTED_TARGETS)),)
 $(error '$(TARGET)' does not exist in list '$(SUPPORTED_TARGETS)')
 endif
 
@@ -22,8 +22,8 @@ BUILDARCH = $(shell uname -m)
 BUILDOS = $(shell echo $(shell uname -o) | tr A-Z a-z)
 endif
 
-ifeq ($(TARGET),rpi3b)
-# hardcoded config for raspberry pi 3b
+ifeq ($(TARGET),rpi3)
+# hardcoded config for raspberry pi 3
 BUILDARCH = arm64
 BUILDOS = linux
 endif

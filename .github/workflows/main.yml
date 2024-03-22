@@ -30,7 +30,7 @@ jobs:
 
           - name: Compile
             working-directory: ./example-golang
-            run: make build target=rpi3
+            run: make build TARGET=rpi3
 
           - id: assert-compilation
             run: file ./example-golang/src/build/example-golang
