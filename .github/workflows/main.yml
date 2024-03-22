@@ -35,9 +35,8 @@ jobs:
           - name: Verify Compilation
             id: assert-compilation
             uses: andstor/file-existence-action@v1
-            working-directory: ./example-golang
             with:
-                files: "src/build/example-golang"
+                files: "./example-golang/src/build/example-golang"
 
           - uses: nick-fields/assert-action@v2
             with:
