@@ -1,0 +1,42 @@
+name: Compile
+# Run this workflow whenever a Pull Request is updated, or when code is merged into Main, or when a new tag is created.
+
+on:
+  pull_request:
+    types: [opened, synchronize, edited, reopened, review_requested]
+    branches: [ main ]
+
+  push:
+    branches: [ main ]
+    tags:
+      - 'v*'
+
+jobs:
+  compile-rpi3:
+    name: Cross-Compile for Raspberry Pi 3
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set env variables
+        run: |
+        LONG_SHA="${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}"
+        echo "LONG_SHA=${LONG_SHA}" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Code Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ env.LONG_SHA }}
+        working-directory: ./example-golang
+    
+      - name: Compile
+        run: make build target=rpi3
+
+      - name: Verify
+        id: assert-compilation
+        run: file ./src/build/example-golang
+        - uses: nick-fields/assert-action@v2
+        with:
+            expected: Mach-O 64-bit executable arm64
+            actual: ${{ steps.assert-compilation.outputs.value }}
+            comparison: contains
