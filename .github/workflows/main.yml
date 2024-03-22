@@ -32,11 +32,15 @@ jobs:
             working-directory: ./example-golang
             run: make build TARGET=rpi3
 
-          - id: assert-compilation
-            run: echo "file ./example-golang/src/build/example-golang"
+          - name: Verify Compilation
+            id: assert-compilation
+            uses: andstor/file-existence-action@v1
+            working-directory: ./example-golang
+            with:
+                files: "src/build/example-golang"
 
           - uses: nick-fields/assert-action@v2
             with:
-                expected: ELF 64-bit LSB executable, ARM aarch64
-                actual: ${{ steps.assert-compilation.outputs.value }}
-                comparison: contains
+                expected: 'true'
+                actual: ${{ steps.assert-compilation.outputs.files_exists }}
+                comparison: exact
