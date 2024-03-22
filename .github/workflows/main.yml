@@ -19,8 +19,8 @@ jobs:
     steps:
       - name: Set env variables
         run: |
-        LONG_SHA="${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}"
-        echo "LONG_SHA=${LONG_SHA}" >> $GITHUB_ENV
+            LONG_SHA="${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}"
+            echo "LONG_SHA=${LONG_SHA}" >> $GITHUB_ENV
         shell: bash
 
       - name: Code Checkout
